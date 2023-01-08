@@ -15,21 +15,21 @@ server.post("/sign-up", (req, res) => {
   const user = req.body;
   users.push(user);
   res.status(201).send("OK");
-});
+  }
+);
 
 server.post("/tweets", (req, res) => {
-  const newTweet = req.body
-  const userAvatar = users.find((u)=> u.username == newTweet.username)
-  tweets.push({...newTweet, avatar:userAvatar.avatar})
-  console.log(userAvatar)
-  if(userAvatar){
-  res.status(201).send("OK")
-  }else{
-  res.status(401).send("UNAUTHORIZED")
+  const newTweet = req.body;
+  const userExist = users.find((u) => u.username === newTweet.username);
+  if (userExist) {
+    tweets.push({ ...newTweet, avatar: userExist.avatar });
+    res.status(201).send("OK");
+  } else {
+    res.status(401).send("UNAUTHORIZED");
   }
 });
 
 server.get("/tweets", (req, res) => {
-  const lastTen = tweets.filter((t, index)=> index >= tweets.length-10)
+  const lastTen = tweets.filter((t, index) => index >= tweets.length - 10);
   res.send(lastTen);
 });
