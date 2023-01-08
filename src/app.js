@@ -14,17 +14,18 @@ server.listen(5000, () => {
 server.post("/sign-up", (req, res) => {
   const user = req.body;
   users.push(user);
-  res.send("OK");
+  res.status(201).send("OK");
 });
 
 server.post("/tweets", (req, res) => {
   const newTweet = req.body
   const userAvatar = users.find((u)=> u.username == newTweet.username)
   tweets.push({...newTweet, avatar:userAvatar.avatar})
-  if(users.contains(newTweet.username)){
-  res.send("OK")
+  console.log(userAvatar)
+  if(userAvatar){
+  res.status(201).send("OK")
   }else{
-  res.send("UNAUTHORIZED")
+  res.status(401).send("UNAUTHORIZED")
   }
 });
 
