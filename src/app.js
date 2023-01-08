@@ -25,6 +25,6 @@ server.post("/tweets", (req, res) => {
 });
 
 server.get("/tweets", (req, res) => {
-//   console.log(req);
-  res.send(tweets);
+  const lastTen = tweets.filter((t, index)=> index >= tweets.length-10)
+  res.send(lastTen);
 });
