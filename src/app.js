@@ -21,7 +21,11 @@ server.post("/tweets", (req, res) => {
   const newTweet = req.body
   const userAvatar = users.find((u)=> u.username == newTweet.username)
   tweets.push({...newTweet, avatar:userAvatar.avatar})
+  if(users.contains(newTweet.username)){
   res.send("OK")
+  }else{
+  res.send("UNAUTHORIZED")
+  }
 });
 
 server.get("/tweets", (req, res) => {
